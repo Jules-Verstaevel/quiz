@@ -193,7 +193,7 @@ function submitQuiz() {
     result.textContent = "⚠️ Merci de répondre à toutes les questions avant de valider.";
   } else {
     result.className = score >= 6 ? "text-success" : "text-warning";
-    result.innerHTML = `✅ Vous avez obtenu <strong>${score}/${total}</strong> bonnes réponses.<br>${score >= 4 ? "Bravo, vous avez de bons réflexes numériques !" : "Pensez à revoir quelques bonnes pratiques."}`;
+    result.innerHTML = `✅ Vous avez obtenu <strong>${score}/${total}</strong> bonnes réponses.<br>${score >= 6 ? "Bravo, vous avez de bons réflexes numériques !" : "Pensez à revoir quelques bonnes pratiques."}`;
   }
 }
 
