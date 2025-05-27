@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz maquette pour sensibiliser les locataires</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+    }
+    h1, h2 {
+      color: #0d6efd;
+    }
+    .divider {
+      border-top: 2px solid #0d6efd;
+      width: 60px;
+      margin: 1rem auto;
+    }
+    .explanation {
+      font-style: italic;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand text-primary fw-bold" href="#">Quiz maquette pour sensibiliser les locataires</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="py-5 bg-primary text-white text-center">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Sensibilisation à la Cybersécurité</h1>
+    <p class="lead">Protégez vos données personnelles grâce à ce quiz simple et rapide</p>
+  </div>
+</header>
+
+<!-- Quiz Section -->
+<section class="py-5" id="quiz">
+  <div class="container">
+    <h2 class="text-center">Quiz : Avez-vous les bons réflexes ?</h2>
+    <div class="divider"></div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <form id="quizForm">
+          <div id="quizContainer">
+            <!-- Questions injectées par JavaScript -->
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary mt-4" onclick="submitQuiz()">Valider mes réponses</button>
+          </div>
+        </form>
+        <div id="quizResult" class="mt-4 fw-bold text-center"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-light py-4 text-center">
+  <div class="container">
+    <p class="mb-0 text-muted">&copy; 2025 Quizz maquette Jules Verstaevel</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+const questions = [
+  {
+    question: "Quel est le mot de passe le plus sécurisé ?",
+    options: [
+      "123456",
+      "maisonsetcites",
+      "P@ssw0rd!2025"
+    ],
+    answer: "P@ssw0rd!2025",
+    explanation: "Un bon mot de passe doit être complexe, long et difficile à deviner."
+  },
+  {
+    question: "Un mot de passe différent pour chaque site est recommandé car :",
+    options: [
+      "Si un site est piraté, les autres restent protégés",
+      "Les sites partagent souvent leurs bases de données entre eux",
+      "C’est plus facile de réinitialiser tous ses mots de passe en même temps"
+    ],
+    answer: "Si un site est piraté, les autres restent protégés",
+    explanation: "Utiliser un mot de passe unique pour chaque compte empêche qu’un piratage d’un site ne compromette tous vos comptes."
+  },
+  {
+    question: "Vous recevez un e-mail de \"maisonsetcites.fr\" vous demandant de mettre à jour vos coordonnées bancaires. Le message est bien rédigé et semble authentique. Quelle est la meilleure action ?",
+    options: [
+      "Je clique et je mets à jour mes informations par précaution",
+      "Je survole le lien pour vérifier l'adresse du site avant de cliquer",
+      "Je consulte mon Espace Locataire en me connectant moi-même sans passer par le lien"
+    ],
+    answer: "Je consulte mon Espace Locataire en me connectant moi-même sans passer par le lien",
+    explanation: "Même un e-mail crédible peut être un piège. Il faut toujours passer par le site officiel."
+  },
+  {
+    question: "Quelle est la meilleure méthode pour protéger votre réseau Wi-Fi ?",
+    options: [
+      "Le laisser ouvert pour les voisins",
+      "Créer un mot de passe long et avec caractères spéciaux",
+      "Donner le mot de passe à tout le monde"
+    ],
+    answer: "Créer un mot de passe long et avec caractères spéciaux",
+    explanation: "Un mot de passe fort protège votre réseau contre les intrusions."
+  },
+  {
+    question: "Que permet les mises à jour de vos appareils ?",
+    options: [
+      "Juste d'avoir de nouvelles applications et nouvelles fonctionnalités",
+      "Améliorer la sécurité et corriger des failles",
+      "Ce n’est pas utile, ça prend du temps"
+    ],
+    answer: "Améliorer la sécurité et corriger des failles",
+    explanation: "Les mises à jour corrigent souvent des failles exploitées par des cybercriminels."
+  },
+  {
+    question: "Que faire si vous perdez votre téléphone avec des données personnelles ?",
+    options: [
+      "Rien, ça arrive à tout le monde",
+      "Prévenir rapidement votre opérateur et activer le blocage",
+      "Attendre qu’on vous appelle pour le récupérer"
+    ],
+    answer: "Prévenir rapidement votre opérateur et activer le blocage",
+    explanation: "Réagir vite limite les risques de vol de données ou d’usurpation."
+  },
+  {
+    question: "Un interlocuteur se présente comme technicien de Maisons & Cités et vous demande par téléphone votre mot de passe. Que faites-vous ?",
+    options: [
+      "Je le lui donne, il semble de confiance",
+      "Je lui demande d’envoyer un mail de confirmation",
+      "Je ne divulgue rien et je raccroche immédiatement"
+    ],
+    answer: "Je ne divulgue rien et je raccroche immédiatement",
+    explanation: "Un vrai technicien ne vous demandera jamais vos mots de passes."
+  }
+];
+
+function loadQuiz() {
+  const container = document.getElementById("quizContainer");
+  questions.forEach((q, i) => {
+    const block = document.createElement("div");
+    block.classList.add("mb-4");
+    block.innerHTML = `
+      <h5 class="text-primary">Question ${i + 1} :</h5>
+      <p>${q.question}</p>
+      ${q.options.map((opt, j) => `
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q${i}" id="q${i}o${j}" value="${opt}">
+          <label class="form-check-label" for="q${i}o${j}">${opt}</label>
+        </div>
+      `).join("")}
+      <p class="explanation" id="exp${i}" style="display:none">💡 ${q.explanation}</p>
+    `;
+    container.appendChild(block);
+  });
+}
+
+function submitQuiz() {
+  let score = 0;
+  let total = questions.length;
+  let unanswered = false;
+
+  questions.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    const exp = document.getElementById(`exp${i}`);
+    exp.style.display = "block";
+
+    if (!selected) {
+      unanswered = true;
+      return;
+    }
+    if (selected.value === q.answer) {
+      score++;
+    }
+  });
+
+  const result = document.getElementById("quizResult");
+  if (unanswered) {
+    result.className = "text-danger";
+    result.textContent = "⚠️ Merci de répondre à toutes les questions avant de valider.";
+  } else {
+    result.className = score >= 6 ? "text-success" : "text-warning";
+    result.innerHTML = `✅ Vous avez obtenu <strong>${score}/${total}</strong> bonnes réponses.<br>${score >= 4 ? "Bravo, vous avez de bons réflexes numériques !" : "Pensez à revoir quelques bonnes pratiques."}`;
+  }
+}
+
+loadQuiz();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
